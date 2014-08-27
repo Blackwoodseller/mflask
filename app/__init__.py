@@ -7,6 +7,9 @@ from flask.ext.mail import Mail
 from config import basedir, ADMINS, MAIL_SERVER, MAIL_PORT, MAIL_USERNAME, MAIL_PASSWORD
 from flask_bootstrap import Bootstrap
 from momentjs import momentjs
+from flask.ext.babel import Babel
+from flask.ext.babel import lazy_gettext
+from flask.ext.babel import gettext
 
 
 app = Flask(__name__)
@@ -15,10 +18,12 @@ db = SQLAlchemy(app)
 lm = LoginManager()
 lm.init_app(app)
 lm.login_view = 'login'
+# lm.login_message = lazy_gettext('Please log in to access this page.')
+lm.login_message = gettext('Please log in to access this page.')
 oid = OpenID(app, os.path.join(basedir, 'tmp'))
 mail = Mail(app)
 Bootstrap(app)
-
+babel = Babel(app)
 
 if not app.debug:
     import logging

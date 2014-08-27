@@ -1,6 +1,7 @@
 from app import db, app
 from hashlib import md5
 import flask.ext.whooshalchemy as whooshalchemy
+import re
 
 ROLE_USER = 0
 ROLE_ADMIN = 1
@@ -71,6 +72,11 @@ class User(db.Model):
 
     def followed_posts(self):
         return Post.query.join(followers, (followers.c.followed_id == Post.user_id)).filter(followers.c.follower_id == self.id).order_by(Post.timestamp.desc())
+
+    @staticmethod
+    def make_valid_nickname(nickname):
+        return re.sub('[^a-zA-Z0-9_\.]', '', nickname)
+
 
 class Post(db.Model):
     __searchable__ = ['body']

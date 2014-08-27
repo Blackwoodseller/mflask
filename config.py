@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 __author__ = 'alp'
 CSRF_ENABLED = True
 SECRET_KEY = 'you-will-never-guess'
@@ -32,3 +33,10 @@ POSTS_PER_PAGE = 3
 
 WHOOSH_BASE = os.path.join(basedir, 'search.db')
 MAX_SEARCH_RESULTS = 50
+
+# available languages
+LANGUAGES = {
+    'en': 'English',
+    'es': 'Español',
+    'ru': 'Russian'
+}

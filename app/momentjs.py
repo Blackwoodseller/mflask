@@ -1,4 +1,3 @@
-__author__ = 'alp'
 from jinja2 import Markup
 
 class momentjs(object):
@@ -6,7 +5,9 @@ class momentjs(object):
         self.timestamp = timestamp
 
     def render(self, format):
-        return Markup("<script>\n document.write(moment(\"%s\").%s);\n</script>" % (self.timestamp.strftime("%Y-%m-%dT%H:%M:%S Z"), format))
+        if self.timestamp is None:
+            return "--"
+        return Markup("<script>\n document.write(moment.locale('fr');moment(\"%s\").%s);\n</script>" % (self.timestamp.strftime("%Y-%m-%dT%H:%M:%S Z"), format))
 
     def format(self, fmt):
         return self.render("format(\"%s\")" % fmt)
